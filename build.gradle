@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'groovy'
+
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
+version = '1.0'
+
+compileJava {
+    dependsOn clean
+}
+//
+//task (runServer, dependsOn: 'classes', type: JavaExec){
+//    mainClassName = "ru.univer.ppo.server.WebServer"
+//    main = mainClassName
+//    classpath = sourceSets.main.runtimeClasspath
+//    standardInput = System.in
+//    jvmArgs = ["-Xdebug"]
+//}
+//
+//task (runClient, dependsOn: 'classes', type: JavaExec){
+//    mainClassName = "ru.univer.ppo.gui.ChatApp"
+//    args = ["localhost"]
+//    main = mainClassName
+//    classpath = sourceSets.main.runtimeClasspath
+//    standardInput = System.in
+//    jvmArgs = ["-Xdebug"]
+//}
+//
+//task (runSecurity, dependsOn: 'classes', type: JavaExec){
+//    mainClassName = "ru.univer.ppo.security.Main"
+//    args = ["localhost"]
+//    main = mainClassName
+//    classpath = sourceSets.main.runtimeClasspath
+//    standardInput = System.in
+//    jvmArgs = ["-Xdebug"]
+//}
+
+mainClassName = 'Main'
+run {
+    standardInput = System.in
+    dependsOn test
+    jvmArgs = ["-Xdebug"]
+
+}
+
+compileTestJava {
+    dependsOn compileJava
+}
+
+repositories {
+    mavenCentral()
+
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0-SNAPSHOT'
+}
+
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+    }
+    dependencies {
+    }
+}
